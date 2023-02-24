@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  pgdb:
+    build:
+      context: .
+      dockerfile: ./pgdb/Dockerfile
+    container_name: pgdb
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "54320:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_pswd
+      POSTGRES_DB: postgres
+    volumes:
+      - "pgdb_pgdata:/var/lib/postgresql/data"
+
+  pgadmin:
+    build:
+      context: .
+      dockerfile: ./pgadmin/Dockerfile
+    container_name: pgadmin
+    restart: always
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pg@admin.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    volumes:
+      - "pgadmin_data:/var/lib/pgadmin"
+
+volumes:
+  pgdb_pgdata:
+  pgadmin_data:

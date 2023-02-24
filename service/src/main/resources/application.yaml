@@ -1,0 +1,24 @@
+"%dev":
+  quarkus:
+    http:
+      port: 8080
+
+    datasource:
+      db-kind: postgresql
+      username: postgres
+      password: postgres_pswd
+      jdbc:
+        url: jdbc:postgresql://localhost:54320/postgres
+
+    hibernate-orm:
+      validate-in-dev-mode: true
+      database:
+        generation: none
+      metrics:
+        enabled: true
+      statistics: true
+      log-session-metrics: true
+      log:
+        sql: true
+        format-sql: true
+        jdbc-warnings: true
